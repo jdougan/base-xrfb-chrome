@@ -5,7 +5,7 @@
 FROM phusion/baseimage:0.9.16
 
 MAINTAINER John Dougan <void.random@gmail.com>
-#derived from the chrome image by Tomohisa Kusano <siomiz@gmail.com>
+#derived from the chrome build by Tomohisa Kusano <siomiz@gmail.com>
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
