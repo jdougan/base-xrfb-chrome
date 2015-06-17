@@ -54,7 +54,7 @@ ADD crd-session /crd-session
 
 VOLUME ["/home/chrome"]
 
-COPY service/* /etc/service/
+COPY service.d /etc/service/
 # RUN chmod +x /etc/service/supervisord/run
 
 EXPOSE 5900
