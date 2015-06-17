@@ -54,8 +54,8 @@ ADD crd-session /crd-session
 
 VOLUME ["/home/chrome"]
 
-RUN mkdir -p /etc/service/supervisor/
-COPY supervisor.sh /etc/service/superviser/run
+RUN mkdir -p /etc/service/supervisord/
+COPY supervisord.sh /etc/service/superviserd/run
 
 EXPOSE 5900
 
