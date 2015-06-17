@@ -1,0 +1,5 @@
+#!/bin/bash
+HOME="/home/chrome"
+DISPLAY=":1"
+USER="chrome"
+exec sudo -E -U $USER /opt/google/chrome/chrome --user-data-dir  --window-position=0,0 --window-size=1024,768 --force-device-scale-factor=1

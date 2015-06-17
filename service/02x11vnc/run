@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /usr/bin/x11vnc -display :1 -nopw -wait 5 -forever
