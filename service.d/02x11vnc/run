@@ -1,2 +1,3 @@
 #!/bin/bash
+sv start 00xvfb || exit 1
 exec /usr/bin/x11vnc -display :1 -nopw -wait 5 -forever

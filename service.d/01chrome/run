@@ -1,4 +1,5 @@
 #!/bin/bash
+sv start 00x11vnc || exit 1
 HOME="/home/chrome"
 DISPLAY=":1"
 USER="chrome"
