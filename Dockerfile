@@ -1,7 +1,9 @@
-# Use phusion/baseimage as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
-# a list of version numbers.
+#
+# Dockerfile to build an Xrfb compatible chrome desktop.
+#
+#
+#
+
 FROM phusion/baseimage:0.9.16
 
 MAINTAINER John Dougan <void.random@gmail.com>
@@ -45,7 +47,9 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY supervisord-crdonly.conf /etc/supervisor/conf.d/supervisord-crdonly.conf
 
 RUN addgroup chrome-remote-desktop && useradd -m -G chrome-remote-desktop,pulse-access chrome
-ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES 1024x768
+
+ENV XRFBRESX=1024 XRFBRESY=768 XRFBDEPTH=24
+ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES=${XRFBRESX}x${XRFBRESY}
 
 ADD crdonly /crdonly
 RUN chmod +x /crdonly
