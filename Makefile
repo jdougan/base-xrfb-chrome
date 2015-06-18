@@ -10,7 +10,7 @@ build:
 run:
 	sudo docker run -p 5900:5900 jdougan/base-xrfb-chrome:1
 
-clean: cleanc
+clean: 
 	sudo docker rmi jdougan/base-xrfb-chrome:1
 
 cleanc:

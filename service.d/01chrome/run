@@ -1,6 +1,6 @@
 #!/bin/bash
-sv start 00x11vnc || exit 1
-HOME="/home/chrome"
-DISPLAY=":1"
-USER="chrome"
+sv start 02x11vnc || exit 1
+export HOME="/home/chrome"
+export DISPLAY=":1"
+export USER="chrome"
 exec sudo -E -u $USER /opt/google/chrome/chrome --user-data-dir  --window-position=0,0 --window-size=1024,768 --force-device-scale-factor=1
