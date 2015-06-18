@@ -57,6 +57,9 @@ VOLUME ["/home/chrome"]
 COPY service.d /etc/service/
 # RUN chmod +x /etc/service/supervisord/run
 
+RUN mkdir -p /vnc
+COPY vncpasswd /vnc/
+
 EXPOSE 5900
 
 # Clean up APT when done.
