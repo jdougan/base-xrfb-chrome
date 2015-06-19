@@ -12,6 +12,13 @@ MAINTAINER John Dougan <void.random@gmail.com>
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
+# setup for all Xrfb apps
+ENV XRFBRESX=1024 XRFBRESY=768 XRFBDEPTH=24
+RUN mkdir -p /vnc
+COPY vncpasswd /vnc/
+COPY service.d /etc/service/
+COPY my_init.d /etc/my_init.d/
+
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive \
 	apt-get install -y \
@@ -36,6 +43,8 @@ RUN apt-get update \
 	xvfb \
 	&& rm -rf /var/lib/apt/lists/*
 
+# This appears to be where the chrome specific atuff starts.
+
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb /chrome.deb
 ADD https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb /crd.deb
 
@@ -48,7 +57,6 @@ COPY supervisord-crdonly.conf /etc/supervisor/conf.d/supervisord-crdonly.conf
 
 RUN addgroup chrome-remote-desktop && useradd -m -G chrome-remote-desktop,pulse-access chrome
 
-ENV XRFBRESX=1024 XRFBRESY=768 XRFBDEPTH=24
 ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES=${XRFBRESX}x${XRFBRESY}
 
 ADD crdonly /crdonly
@@ -57,12 +65,6 @@ RUN chmod +x /crdonly
 ADD crd-session /crd-session
 
 VOLUME ["/home/chrome"]
-
-COPY service.d /etc/service/
-# RUN chmod +x /etc/service/supervisord/run
-
-RUN mkdir -p /vnc
-COPY vncpasswd /vnc/
 
 EXPOSE 5900
 
