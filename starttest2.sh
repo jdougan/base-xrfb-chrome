@@ -1,5 +1,6 @@
 #!/bin.bash
 export XRFBSESSIONID=testsession
+rm -rf  ${XRFBSESSIONID}/*
 echo -n 'XRFBPASSWD=' > ${XRFBSESSIONID}/xrfbpasswd
 echo 'tea41dragon' >> ${XRFBSESSIONID}/xrfbpasswd
 export XRFBHOSTPORT=5901
