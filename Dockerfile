@@ -41,6 +41,13 @@ RUN apt-get update \
 	xbase-clients \
 	xdg-utils \
 	xvfb \
+	libcanberra-gtk-module \
+	libexif-dev \
+	libgl1-mesa-dri \
+	libgl1-mesa-glx \
+	libv4l-0 \
+	libxss1 \
+	libxtst6 \
 	&& rm -rf /var/lib/apt/lists/*
 
 # This appears to be where the chrome specific atuff starts.
