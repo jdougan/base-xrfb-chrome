@@ -7,6 +7,7 @@ FROM phusion/baseimage:0.9.16
 
 MAINTAINER John Dougan <void.random@gmail.com>
 #derived from the chrome build by Tomohisa Kusano <siomiz@gmail.com>
+# https://askubuntu.com/questions/193130/what-is-the-most-basic-window-manager-for-ubuntu-that-can-be-used-to-display-a-s
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -27,6 +28,21 @@ EXPOSE 5900
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive \
 	apt-get install -y \
+	x11vnc \
+	xbase-clients \
+	xdg-utils \
+	xvfb \
+	ratpoison \
+	&& echo "apt-get done"
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# This appears to be where the chrome specific atuff starts.
+
+RUN apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive \
+	apt-get install -y \
 	ca-certificates \
 	fonts-takao \
 	gconf-service \
@@ -42,10 +58,6 @@ RUN apt-get update \
 	python-psutil \
 	supervisor \
 	wget \
-	x11vnc \
-	xbase-clients \
-	xdg-utils \
-	xvfb \
 	libcanberra-gtk-module \
 	libexif-dev \
 	libgl1-mesa-dri \
@@ -54,8 +66,6 @@ RUN apt-get update \
 	libxss1 \
 	libxtst6 \
 	&& rm -rf /var/lib/apt/lists/*
-
-# This appears to be where the chrome specific atuff starts.
 
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb /chrome.deb
 ADD https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb /crd.deb
