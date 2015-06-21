@@ -1,5 +1,5 @@
 #!/bin/bash
-sv start 02x11vnc || exit 1
+sv start 01x11vnc || exit 1
 export HOME="/home/chrome"
 export DISPLAY=":1"
 export USER="chrome"

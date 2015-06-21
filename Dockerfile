@@ -3,7 +3,6 @@
 #
 #
 #
-
 FROM phusion/baseimage:0.9.16
 
 MAINTAINER John Dougan <void.random@gmail.com>
@@ -15,9 +14,15 @@ CMD ["/sbin/my_init"]
 # setup for all Xrfb apps
 ENV XRFBRESX=1024 XRFBRESY=768 XRFBDEPTH=24
 RUN mkdir -p /vnc
+RUN mkdir -p /data
 COPY vncpasswd /vnc/
 COPY service.d /etc/service/
 COPY my_init.d /etc/my_init.d/
+RUN useradd -m user
+
+VOLUME ["/data"]
+VOLUME ["/home/user"]
+EXPOSE 5900
 
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive \
@@ -62,7 +67,7 @@ RUN ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY supervisord-crdonly.conf /etc/supervisor/conf.d/supervisord-crdonly.conf
 
-RUN addgroup chrome-remote-desktop && useradd -m -G chrome-remote-desktop,pulse-access chrome
+RUN addgroup chrome-remote-desktop && usermod  --groups chrome-remote-desktop,pulse-access  user
 
 ENV CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES=${XRFBRESX}x${XRFBRESY}
 
@@ -70,10 +75,6 @@ ADD crdonly /crdonly
 RUN chmod +x /crdonly
 
 ADD crd-session /crd-session
-
-VOLUME ["/home/chrome"]
-
-EXPOSE 5900
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
