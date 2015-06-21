@@ -1,6 +1,6 @@
 #!/bin/bash
 sv start 01x11vnc || exit 1
-export HOME="/home/chrome"
+export HOME="/home/user"
 export DISPLAY=":1"
-export USER="chrome"
+export USER="user"
 exec sudo -E -u $USER /opt/google/chrome/chrome --user-data-dir  --disable-gpu-watchdog  --window-position=0,0 --window-size=${XRFBRESX},${XRFBRESY} --force-device-scale-factor=1
