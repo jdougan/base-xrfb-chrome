@@ -15,7 +15,6 @@ echo -n 'XRFBURI=' >> ${XRFBSESSIONDIR}/xrfbpasswd
 echo "" >> ${XRFBSESSIONDIR}/xrfbpasswd
 fi
 export XRFBHOSTPORT=5901
-exit
 docker run -p ${XRFBHOSTPORT}:5900 -e XRFBRESX=1000 -e XRFBRESY=1000 -e XRFBDEPTH=24 --env-file ${XRFBSESSIONDIR}/xrfbpasswd \
     --cidfile=${XRFBSESSIONDIR}/containerid  --label=net.opencobalt.xrfb.session=${XRFBSESSIONID} \
     jdougan/base-xrfb-chrome:1
